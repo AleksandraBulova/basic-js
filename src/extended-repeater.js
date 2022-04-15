@@ -15,9 +15,36 @@ const { NotImplementedError } = require('../extensions/index.js');
  * => 'STRINGPLUS00PLUS00PLUS**STRINGPLUS00PLUS00PLUS**STRINGPLUS00PLUS00PLUS'
  *
  */
-function repeater(/* str, options */) {
-  throw new NotImplementedError('Not implemented');
-  // remove line with error and write your code here
+ function repeater( str, options ) {
+  let stR = String(str);
+  let repeatTimes = Number(options.repeatTimes);
+  let separator = String(options.separator);
+  let addition = String(options.addition);
+  let additionRepeatTimes = Number(options.additionRepeatTimes);
+  let additionSeparator = String(options.additionSeparator);
+  
+  if (options.addition === undefined && options.separator === undefined){
+    separator = '+';
+    return (stR + separator).repeat(repeatTimes).slice(0, - separator.length);
+  }else if (options.separator === undefined && options.additionRepeatTimes === undefined) {
+    separator = '+';
+    return (stR + addition + separator).repeat(repeatTimes).slice(0, - separator.length);
+  } else if(options.separator === undefined && options.additionSeparator === undefined) {
+    separator = '+';
+    additionSeparator = '|';
+    return (stR + ((addition + additionSeparator).repeat(additionRepeatTimes)).slice(0, - additionSeparator.length) + separator).repeat(repeatTimes).slice(0, - separator.length);
+  } else if (options.separator === undefined) {
+    separator = '+';
+    return (stR + ((addition + additionSeparator).repeat(additionRepeatTimes)).slice(0, - additionSeparator.length) + separator).repeat(repeatTimes).slice(0, - separator.length);
+  } else if (options.additionSeparator === undefined) {
+    additionSeparator = '|';
+    return (stR + ((addition + additionSeparator).repeat(additionRepeatTimes)).slice(0, - additionSeparator.length) + separator).repeat(repeatTimes).slice(0, - separator.length);
+  } else if(options.addition === undefined) {
+    return (stR + separator).repeat(repeatTimes).slice(0, - separator.length);
+  } else if(options.repeatTimes === undefined) {
+    return stR + addition;
+  }
+  return (stR + ((addition + additionSeparator).repeat(additionRepeatTimes)).slice(0, - additionSeparator.length) + separator).repeat(repeatTimes).slice(0, - separator.length);
 }
 
 module.exports = {
